@@ -1,0 +1,34 @@
+name: Validate BCS Store OTA candidate
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'BCS_STORE_v2_0_0.zip'
+      - '.github/workflows/validate-bcs-store.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inspect and verify candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import io, json, tarfile, hashlib, zipfile
+          with zipfile.ZipFile('BCS_STORE_v2_0_0.zip') as z:
+              assert z.testzip() is None
+              manifest=json.loads(z.read('release-candidate/PUBLICATION_MANIFEST.json'))
+              package=z.read('release-candidate/bcs_store@2.0.0.tgz')
+              assert hashlib.sha256(package).hexdigest()==manifest['package_sha256']
+              assert manifest['app_id']=='bcs_store'
+              with tarfile.open(fileobj=io.BytesIO(package),mode='r:gz') as t:
+                  names=t.getnames()
+                  assert any(n.endswith('mgu-app.json') for n in names)
+              print('ZIP integrity, package SHA256 and Store identity verified.')
+              print('Release ready:',manifest['release_ready'])
+              if manifest['release_ready'] is not True:
+                  print('On-car OTA validation pending. Do NOT publish as customer update.')
+          PY
