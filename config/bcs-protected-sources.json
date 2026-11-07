@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "version": "1.0.0",
+  "store_app": "bcs_store",
+  "sources": [
+    {
+      "id": "bcs-store",
+      "type": "github",
+      "repo": "bcs-develop/bcs-store",
+      "channel": "releases"
+    },
+    {
+      "id": "bcs-mgu-apps",
+      "type": "github",
+      "repo": "bcs-develop/bcs-mgu-apps",
+      "channel": "releases"
+    }
+  ],
+  "updater_local_override": "/var/opt/mgu-updater/updater.local.conf",
+  "updater_stored_sources": "/var/opt/mgu-updater/sources.json",
+  "guard_install_path": "/var/opt/bcs-source-guard/bcs_source_guard.js",
+  "preserve_external_sources": true,
+  "repair_mode": "manual",
+  "restart_updater_automatically": false
+}
