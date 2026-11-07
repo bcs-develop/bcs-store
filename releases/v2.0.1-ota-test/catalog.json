@@ -5,12 +5,11 @@
       "id": "bcs_store",
       "kind": "app",
       "title": "BCS Store",
-      "description": "The apps and head-unit tools of every source with their state, and the sources; installs, updates and removes them through mgu-updater",
       "version": "2.0.1",
       "artifact": {
         "name": "bcs_store@2.0.1.tgz",
-        "size": 1967335,
-        "sha256": "ad053c9ff30dd8293eda73725215cd329e48e43c477977022493ec51752686bd",
+        "size": 1967770,
+        "sha256": "c993e08204cc0e7c9db505a302fb83aeb8424468053f299ffd36044126f92c26",
         "url": "bcs_store@2.0.1.tgz"
       },
       "build": "unit",
